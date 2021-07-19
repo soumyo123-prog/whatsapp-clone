@@ -1,6 +1,9 @@
 import { useAuth } from '../../custom/auth';
 import {firebase} from '../../pages/_app';
 
+import classes from './styles/home.module.scss';
+import Chats from '../chats/chats';
+
 export default function Home () {
     const {user} = useAuth();
 
@@ -11,9 +14,12 @@ export default function Home () {
     }
 
     return (
-        <div>
-            hi {user.displayName}, your email is {user.email} and unique id is {user.uid}
-            <button className="btn btn-primary" onClick={googleSignout}>Sign out</button>
+        <div
+            className={[
+                classes.home_root
+            ].join(' ')}
+        >
+            <Chats />
         </div>
     )
 }

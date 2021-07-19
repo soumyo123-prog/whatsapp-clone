@@ -1,0 +1,27 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.chats_search_container {
+    border-right: 2px solid $border-dark;
+    border-bottom: 1px solid $border-dark;
+    height: 50px;
+}
+
+.chats_search_input_container {
+    width : 90%;
+    height : 35px;
+    border-radius : 50px;
+    background : $nav-background-dark;
+    outline : 0;
+    border : 0;
+}
+
+.chats_search_icon {
+    cursor : pointer;
+}
+
+.chats_search_text {
+    color : $nav-icons-color;
+    border : 0;
+    outline : 0;
+}

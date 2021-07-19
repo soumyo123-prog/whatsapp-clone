@@ -1,0 +1,14 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.chats_list_container {
+    height : calc(100% - 60px - 50px);
+    border-right: 2px solid $border-dark;
+    overflow: auto;
+    &::-webkit-scrollbar-track {
+        background-color : initial;
+    }
+    &::-webkit-slider-thumb {
+        background-color : rgba(0,0,0,0.2);
+    }
+}
