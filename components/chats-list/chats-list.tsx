@@ -1,5 +1,4 @@
 import classes from './styles/chats-list.module.scss';
-import DummyProfile from '../dummy-profile/dummy-profile';
 import Chat from './chat';
 
 export default function ChatsList() {

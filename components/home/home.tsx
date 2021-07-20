@@ -1,13 +1,10 @@
-import { useAuth } from '../../custom/auth';
 import {firebase} from '../../pages/_app';
 
 import classes from './styles/home.module.scss';
 import Chats from '../chats/chats';
 
 export default function Home () {
-    const {user} = useAuth();
-
-    const googleSignout = () => {
+    const logout = () => {
         firebase.auth().signOut()
         .then(() => console.log("Logged out Successfully"))
         .catch(() => console.log("Could not log out"))
@@ -19,7 +16,7 @@ export default function Home () {
                 classes.home_root
             ].join(' ')}
         >
-            <Chats />
+            <Chats logout={logout}/>
         </div>
     )
 }

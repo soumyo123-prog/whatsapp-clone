@@ -4,12 +4,14 @@ import ChatsNav from '../chats-nav/chats-nav';
 import ChatsSearch from '../chats-search/chats-search';
 import ChatsList from '../chats-list/chats-list';
 
-export default function Chats() {
+const Chats : React.FC<{logout : () => void;}> = (props) => {
     return (
         <div className={[classes.chats_container].join(' ')}>
-            <ChatsNav />
+            <ChatsNav logout={props.logout}/>
             <ChatsSearch />
             <ChatsList />
         </div>
     )
 }
+
+export default Chats;

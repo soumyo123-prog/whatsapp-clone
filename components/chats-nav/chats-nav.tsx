@@ -1,8 +1,23 @@
 import classes from './styles/chats-nav.module.scss';
 import DummyProfile from '../dummy-profile/dummy-profile';
+import ChatsDropdown from '../chats-dropdown/chats-dropdown';
+import Profile from '../profile/profile';
+import { useState } from 'react';
 
-export default function ChatsNav() {
+const ChatsNav : React.FC<{logout : () => void;}> = (props) => {
+    const [dropdown, setDropdown] = useState(false);
+    const [profile, setProfile] = useState(false);
+
+    const toggleDropdown = () => {
+        setDropdown(prevDropdown => !prevDropdown);
+    }
+
+    const toggleProfileSettings = () => {
+        setProfile(prevProfile => !prevProfile);
+    }
+
     return (
+        <>
         <nav className={[classes.chats_nav].join(' ')}>
             <ul
                 className={[
@@ -18,6 +33,7 @@ export default function ChatsNav() {
                         classes.chats_nav_list_item_profile,
                         "d-flex align-items-center",
                     ].join(' ')}
+                    onClick={toggleProfileSettings}
                 >
                     <DummyProfile />
                 </li>
@@ -38,6 +54,7 @@ export default function ChatsNav() {
                         classes.chats_nav_list_item_settings,
                         "d-flex align-items-center justify-content-center",
                     ].join(' ')}
+                    onClick={toggleDropdown}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                         <path fill="rgb(177, 179, 181)" d="M12 7a2 2 0 1 0-.001-4.001A2 2 0 0 0 12 7zm0 2a2 2 0 1 0-.001 3.999A2 2 0 0 0 12 9zm0 6a2 2 0 1 0-.001 3.999A2 2 0 0 0 12 15z"></path>
@@ -45,5 +62,10 @@ export default function ChatsNav() {
                 </li>
             </ul>
         </nav>
+        <ChatsDropdown show={dropdown} logout={props.logout}/>
+        <Profile show={profile} toggleShow={toggleProfileSettings}/>
+        </>
     )
 }
+
+export default ChatsNav;
