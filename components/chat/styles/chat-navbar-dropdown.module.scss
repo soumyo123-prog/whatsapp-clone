@@ -1,0 +1,30 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.chat_dropdown_container {
+    width : 40%;
+    position: absolute;
+    top : 60px;
+    right : 20px;
+    transform-origin: top right;
+    
+    transition: all 0.2s ease-out;
+}
+
+.chat_dropdown_item {
+    background-color: $nav-background-dark;
+    color : $nav-icons-color;
+    cursor : pointer;
+
+    &:hover {
+        background-color : $dropdown-hover-dark;
+    }
+}
+
+.close {
+    transform: scale(0,0);
+}
+
+.open {
+    transform: scale(1,1);
+}
