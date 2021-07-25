@@ -12,8 +12,24 @@
     width : 80%;
 }
 
-.profile_detail_detail {
+.profile_detail {
     width : 80%;
     color : $profile-settings-text;
     margin : 20px 0 20px 0;
+}
+
+.profile_detail_detail {
+    width : 90%;
+    height : 100%;
+    outline : 0;
+}
+
+.profile_detail_edit {
+    width : 10%;
+    height : 100%;
+    cursor: pointer;
+}
+
+.profile_detail_editing {
+    border-bottom: 2px solid $teal-green-light;
 }

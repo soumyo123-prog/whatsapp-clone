@@ -8,7 +8,15 @@
     z-index : 50;
     transform-origin: top right;
 
-    animation: growth 0.2s ease;
+    transition:all 0.2s ease-out; 
+}
+
+.close {
+    transform: scale(0,0);
+}
+
+.open {
+    transform: scale(1,1);
 }
 
 .chats_dropdown_item {
@@ -18,15 +26,6 @@
 
     &:hover {
         background-color : $dropdown-hover-dark;
-    }
-}
-
-@keyframes growth {
-    from {
-        transform : scale(0,0);
-    }
-
-    to {
-        transform : scale(1,1);
+        cursor: pointer;
     }
 }

@@ -12,7 +12,7 @@ export default function Auth () {
         const provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth()
         .signInWithPopup(provider)
-        .then(res => {
+        .then(async res => {
             const user = {
                 displayName : res.user ? res.user.displayName || '' : '',
                 email : res.user ? res.user.email || '' : '',
@@ -20,6 +20,11 @@ export default function Auth () {
                 uid : res.user ? res.user.uid || '' : ''
             }
             setUser(user);
+            await db.collection('users').doc(user.uid).set({
+                displayName : user.displayName,
+                email : user.email,
+                uid : user.uid
+            });
         })
         .catch(err => {
             console.log(err.message);

@@ -1,14 +1,17 @@
 import classes from './styles/chat.module.scss';
 import DummyProfile from '../dummy-profile/dummy-profile';
-import { propTypes } from 'react-bootstrap/esm/Image';
+import { useChat } from '../../custom/individualChat';
 
-const Chat : React.FC<{name:string; email:string; date:string}> = (props) => {
+const Chat : React.FC<{name:string; email:string; date:string; uid:string;}> = (props) => {
+    const {showChat} = useChat();
+
     return (
         <div
             className={[
                 classes.chat_container,
                 "d-flex"
             ].join(' ')}
+            onClick={() => showChat(props.name, props.email, props.uid)}
         >
             <div
                 className={[

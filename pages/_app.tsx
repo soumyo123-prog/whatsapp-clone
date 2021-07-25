@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import type { AppProps } from 'next/app'
 import '../styles/app.scss';
 import {AuthProvider} from '../custom/auth';
+import {ChatProvider} from '../custom/individualChat';
 
 import firebase from 'firebase';
 import 'firebase/firestore';
@@ -28,7 +29,9 @@ export {firebase};
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
-      <Component {...pageProps} />
+        <ChatProvider>
+              <Component {...pageProps} />
+        </ChatProvider>
     </AuthProvider>
   )
 }

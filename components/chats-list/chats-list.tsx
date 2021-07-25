@@ -1,67 +1,54 @@
 import classes from './styles/chats-list.module.scss';
 import Chat from './chat';
+import {useAuth} from '../../custom/auth';
 
-export default function ChatsList() {
-    const chatsList = [
-        {
-            name : "Dummy Name",
-            email : "dummy@gmail.com",
-            date : "yesterday"
-        },
-        {
-            name : "Dummy Name",
-            email : "dummy@gmail.com",
-            date : "yesterday"
-        },
-        {
-            name : "Dummy Name",
-            email : "dummy@gmail.com",
-            date : "yesterday"
-        },
-        {
-            name : "Dummy Name",
-            email : "dummy@gmail.com",
-            date : "yesterday"
-        },
-        {
-            name : "Dummy Name",
-            email : "dummy@gmail.com",
-            date : "yesterday"
-        },
-        {
-            name : "Dummy Name",
-            email : "dummy@gmail.com",
-            date : "yesterday"
-        },
-        {
-            name : "Dummy Name",
-            email : "dummy@gmail.com",
-            date : "yesterday"
-        },
-        {
-            name : "Dummy Name",
-            email : "dummy@gmail.com",
-            date : "yesterday"
-        },
-        {
-            name : "Dummy Name",
-            email : "dummy@gmail.com",
-            date : "yesterday"
-        },
-        {
-            name : "Dummy Name",
-            email : "dummy@gmail.com",
-            date : "yesterday"
-        }
-    ]
+import {firebase} from '../../pages/_app';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
-    const show = chatsList.map((chat, index) => {
+const db=firebase.firestore();
+
+type listObj = {
+    displayName : string;
+    email : string;
+    uid : string;
+};
+
+const ChatsList : React.FC<{}> = (props) => {
+    const [list, setList] = useState<listObj[]>([]);
+    const {user} = useAuth();
+
+    useEffect(() => {
+        db.collection('messages').where('from','==',user.uid).get()
+        .then(querySnapshot => {
+            querySnapshot.forEach(async doc => {
+                try {
+                    
+                    const tempUsr = await db.collection('users').where('uid','==',doc.data().to).get();
+                    const allUsrs : listObj[] = [];
+                    tempUsr.forEach(usr => {
+                        allUsrs.push(usr.data());
+                    })
+                    setList(allUsrs);
+
+                } catch (error) {
+                    console.log(error.message);
+                }
+            })
+        })
+        .catch(error => {
+            console.log(error.message);
+        })
+    }, []);
+
+    const show = list.map((chat, index) => {
         return (
             <Chat 
                 key={index}
-                name={chat.name}
+                name={chat.displayName}
                 email={chat.email}
-                date={chat.date}
+                date="yesterday"
+                uid={chat.uid}
             />
         )   
     })
@@ -76,3 +63,5 @@ export default function ChatsList() {
         </div>
     );
 }
+
+export default ChatsList;
