@@ -6,9 +6,10 @@ import Chat from '../chat/chat';
 import { useChat } from '../../custom/individualChat';
 
 export default function Home () {
-    const {showIndividual} = useChat();
+    const {showIndividual, hideChat} = useChat();
 
     const logout = () => {
+        hideChat();
         firebase.auth().signOut()
         .then(() => console.log("Logged out Successfully"))
         .catch(() => console.log("Could not log out"))

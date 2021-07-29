@@ -19,7 +19,7 @@ const ChatsList : React.FC<{}> = (props) => {
     const {user} = useAuth();
 
     useEffect(() => {
-        db.collection('messages').where('from','==',user.uid).get()
+        db.collection('messages').where('from','==',user.uid).where('to','==',user.uid).get()
         .then(querySnapshot => {
             querySnapshot.forEach(async doc => {
                 try {

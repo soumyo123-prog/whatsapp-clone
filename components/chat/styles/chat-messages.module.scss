@@ -1,0 +1,10 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.chat_messages_container {
+    position: absolute;
+    top : 60px;
+    bottom : 62px;
+    width : 100%;
+    overflow: auto;
+}

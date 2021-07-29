@@ -6,12 +6,14 @@ const ChatContext = createContext<{
     uid : string;
     showIndividual : boolean;
     showChat : (newName:string, newEmail:string, newUid:string)=>void;
+    hideChat : () => void
 }>({
     name : "",
     email : "",
     uid : "",
     showIndividual : false,
-    showChat : (newName:string, newEmail:string, newUid:string) => {}
+    showChat : (newName:string, newEmail:string, newUid:string) => {},
+    hideChat : () => {}
 })
 
 export const ChatProvider : React.FC = ({children}) => {
@@ -25,6 +27,13 @@ export const ChatProvider : React.FC = ({children}) => {
         updateEmail(newEmail);
         updateUid(newUid);
         setShowIndividual(true);
+    }
+
+    const hideChat : () => void = () => {
+        updateName('');
+        updateEmail('');
+        updateUid('');
+        setShowIndividual(false);
     }
 
     const updateName : (newName:string)=>void = (newName : string) => {
@@ -46,7 +55,8 @@ export const ChatProvider : React.FC = ({children}) => {
                 email,
                 uid,
                 showIndividual,
-                showChat
+                showChat,
+                hideChat
             }}
         >
             {children}
