@@ -14,23 +14,11 @@ export default function ChatMessage () {
 
     const sendMessageHandler = async () => {
         try {
-            const message = messageRef.current?.value;
-            if (!message) {
-                return;
-            }
-            const messageObject = {
-                body : message,
-                from : user.uid,
-                to : uid,
-                timestamp : firebase.firestore.FieldValue.serverTimestamp()
-            }
-            if (messageRef.current?.value) {
-                messageRef.current.value = '';
-            }
-            messageRef.current?.focus();
-            await db.collection('messages').add(messageObject);
+            
+            
+        
         } catch (e) {
-            return;
+            return e;
         }
     }
 

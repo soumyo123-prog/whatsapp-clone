@@ -5,6 +5,7 @@ import {useAuth} from '../../custom/auth';
 import {firebase} from '../../pages/_app';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { useSearch } from '../../custom/search';
 
 const db=firebase.firestore();
 
@@ -17,29 +18,17 @@ type listObj = {
 const ChatsList : React.FC<{}> = (props) => {
     const [list, setList] = useState<listObj[]>([]);
     const {user} = useAuth();
+    const {see, searchedUser} = useSearch();
 
     useEffect(() => {
-        db.collection('messages').where('from','==',user.uid).where('to','==',user.uid).get()
-        .then(querySnapshot => {
-            querySnapshot.forEach(async doc => {
-                try {
-                    
-                    const tempUsr = await db.collection('users').where('uid','==',doc.data().to).get();
-                    const allUsrs : listObj[] = [];
-                    tempUsr.forEach(usr => {
-                        allUsrs.push(usr.data());
-                    })
-                    setList(allUsrs);
+        
+        if (see) {
+            setList([searchedUser]);
+        } else {
+            setList([]);
+        }
 
-                } catch (error) {
-                    console.log(error.message);
-                }
-            })
-        })
-        .catch(error => {
-            console.log(error.message);
-        })
-    }, []);
+    }, [see]);
 
     const show = list.map((chat, index) => {
         return (

@@ -13,17 +13,19 @@ export default function Auth () {
         firebase.auth()
         .signInWithPopup(provider)
         .then(async res => {
+            console.log(res.user);
             const user = {
                 displayName : res.user ? res.user.displayName || '' : '',
                 email : res.user ? res.user.email || '' : '',
                 refreshToken : res.user ? res.user.refreshToken || '' : '',
-                uid : res.user ? res.user.uid || '' : ''
+                uid : res.user ? res.user.uid || '' : '',
             }
             setUser(user);
             await db.collection('users').doc(user.uid).set({
                 displayName : user.displayName,
                 email : user.email,
-                uid : user.uid
+                uid : user.uid,
+                messages : []
             });
         })
         .catch(err => {

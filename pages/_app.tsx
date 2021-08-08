@@ -7,6 +7,7 @@ import {ChatProvider} from '../custom/individualChat';
 
 import firebase from 'firebase';
 import 'firebase/firestore';
+import { SearchProvider } from '../custom/search';
 
 const config = {
   apiKey: "AIzaSyAdAYHzd6iQalrW37m7cK2Fz3goZMS8Wy8",
@@ -30,7 +31,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
         <ChatProvider>
+            <SearchProvider>
               <Component {...pageProps} />
+            </SearchProvider>
         </ChatProvider>
     </AuthProvider>
   )

@@ -18,44 +18,17 @@ type messageObj = {
 };
 
 export default function ChatMessages () {
-    const [messagesFrom, setMessagesFrom] = useState<messageObj[]>([]);
-    const [messagesTo, setMessagesTo] = useState<messageObj[]>([]);
-
-    console.log(messagesFrom);
-    console.log(messagesTo);
+    const [messages, setMessages] = useState<messageObj[]>([]);
 
     const {uid, hideChat} = useChat();
     const {user} = useAuth();
 
     useEffect(() => {
-        const u1 = db.collection('messages')
-                            .where('from','==',user.uid)
-                            .where('to','==',uid)
-                            .orderBy('timestamp','asc')
-                            .onSnapshot(querySnapshot => {
-                                var newMessages : messageObj[] = [];
-                                querySnapshot.forEach(doc => {
-                                    newMessages.push(doc.data());
-                                })
-                                setMessagesFrom(newMessages);
-                            })
         
-        const u2 = db.collection('messages')
-                            .where('from','==',uid)
-                            .where('to','==',user.uid)
-                            .orderBy('timestamp','asc')
-                            .onSnapshot(querySnapshot => {
-                                var newMessages : messageObj[] = [];
-                                querySnapshot.forEach(doc => {
-                                    newMessages.push(doc.data());
-                                })
-                                setMessagesTo(newMessages);
-                            })
         
         return () => {
+            console.log("unmounting");
             hideChat();
-            u1();
-            u2();
         }
     }, []);
 

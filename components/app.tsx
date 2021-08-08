@@ -17,7 +17,7 @@ export default function App () {
                     displayName : displayName || '',
                     email : email || '',
                     refreshToken : refreshToken || '',
-                    uid : uid || ''
+                    uid : uid || '',
                 })
                 setShow(<Home />)
             } else {
