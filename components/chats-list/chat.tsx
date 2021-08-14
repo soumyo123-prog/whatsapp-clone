@@ -2,8 +2,15 @@ import classes from './styles/chat.module.scss';
 import DummyProfile from '../dummy-profile/dummy-profile';
 import { useChat } from '../../custom/individualChat';
 
-const Chat : React.FC<{name:string; email:string; date:string; uid:string;}> = (props) => {
-    const {showChat} = useChat();
+const Chat : React.FC<{name:string; id:string; creator:string;}> = (props) => {
+    const { updateShow, updateName, updateId, updateCreator } = useChat();
+
+    const showChatHandler = () => {
+        updateName(props.name);
+        updateId(props.id);
+        updateCreator(props.creator);
+        updateShow(true);
+    }
 
     return (
         <div
@@ -11,7 +18,7 @@ const Chat : React.FC<{name:string; email:string; date:string; uid:string;}> = (
                 classes.chat_container,
                 "d-flex"
             ].join(' ')}
-            onClick={() => showChat(props.name, props.email, props.uid)}
+            onClick = {showChatHandler}
         >
             <div
                 className={[
@@ -35,22 +42,6 @@ const Chat : React.FC<{name:string; email:string; date:string; uid:string;}> = (
                 >
                     {props.name}
                 </div>
-                <div
-                    className={[
-                        classes.chat_profile_email,
-                        "d-flex align-items-center"
-                    ].join(' ')}
-                >
-                    {props.email}
-                </div>
-            </div>
-            <div
-                className={[
-                    classes.chat_profile_date,
-                    "d-flex justify-content-center align-items-center"
-                ].join(' ')}
-            >
-                {props.date}
             </div>
         </div>
     )

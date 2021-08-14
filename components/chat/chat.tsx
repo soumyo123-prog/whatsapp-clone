@@ -3,7 +3,7 @@ import ChatNavbar from './chat-navbar';
 import ChatMessage from './chat-message';
 import ChatMessages from './chat-messages';
 
-const Chat : React.FC<{show:boolean;}> = (props) => {
+const Chat : React.FC<{show:boolean}> = (props) => {
     const chatClasses = [
         classes.chat_container,
     ];

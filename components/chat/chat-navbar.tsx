@@ -5,10 +5,17 @@ import {FaEllipsisV} from 'react-icons/fa';
 import ChatDropdown from './chat-navbar-dropdown';
 import { useState } from 'react';
 import { useChat } from '../../custom/individualChat';
+import { AiOutlineArrowLeft } from 'react-icons/ai';
+import ChatDetails from '../chat-details/chat-details';
 
 const ChatNavbar : React.FC<{}> = (props) => {
     const [show, setShow] = useState(false);
-    const {name, email} = useChat();
+    const { name, updateShow } = useChat();
+    const [seeDet, setSeeDet] = useState(false);
+
+    const updateSeeDet = (val : boolean) => {
+        setSeeDet(val);
+    }
 
     const toggleDropdown = () => {
         setShow(prevShow => !prevShow);
@@ -29,11 +36,22 @@ const ChatNavbar : React.FC<{}> = (props) => {
                 ].join(' ')}
             >
                 <li
+                    className = {[
+                        "d-flex align-items-center justify-content-center",
+                        classes.chat_navbar_item,
+                        classes.chat_navbar_item_back
+                    ].join(' ')}
+                    onClick = {() => updateShow(false)}
+                >
+                    <AiOutlineArrowLeft size="1.5rem" color="rgb(177, 179, 181)"/>
+                </li>
+                <li
                     className={[
                         "d-flex justify-content-center align-items-center",
                         classes.chat_navbar_item,
                         classes.chat_navbar_item_profile
                     ].join(' ')}
+                    onClick = {() => updateSeeDet(true)}
                 >
                     <DummyProfile />
                 </li>
@@ -68,6 +86,7 @@ const ChatNavbar : React.FC<{}> = (props) => {
                 </li>
             </ul>
         </nav>
+        <ChatDetails show={seeDet} hide={updateSeeDet}/>
         <ChatDropdown show={show}/>
         </>
     )

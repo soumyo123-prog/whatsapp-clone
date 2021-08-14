@@ -5,39 +5,45 @@ import {useAuth} from '../../custom/auth';
 import {firebase} from '../../pages/_app';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { useSearch } from '../../custom/search';
 
 const db=firebase.firestore();
 
 type listObj = {
-    displayName : string;
-    email : string;
-    uid : string;
+    name : string;
+    id : string;
+    creator : string;
 };
 
 const ChatsList : React.FC<{}> = (props) => {
     const [list, setList] = useState<listObj[]>([]);
     const {user} = useAuth();
-    const {see, searchedUser} = useSearch();
 
     useEffect(() => {
-        
-        if (see) {
-            setList([searchedUser]);
-        } else {
-            setList([]);
+        const unsucscribe = db.collection('rooms').where('members','array-contains',user.uid)
+            .onSnapshot(qs => {
+                const temp : listObj[] = [];
+                qs.forEach(doc => {
+                    temp.push({
+                        name : doc.data().name,
+                        id : doc.data().id,
+                        creator : doc.data().creator
+                    })
+                })
+                setList(temp);
+            })
+            
+        return () => {
+            unsucscribe();
         }
+    }, [])
 
-    }, [see]);
-
-    const show = list.map((chat, index) => {
+    const show = list.map((room, index) => {
         return (
             <Chat 
                 key={index}
-                name={chat.displayName}
-                email={chat.email}
-                date="yesterday"
-                uid={chat.uid}
+                name={room.name}
+                id={room.id}
+                creator={room.creator}
             />
         )   
     })

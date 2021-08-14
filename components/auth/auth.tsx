@@ -13,7 +13,6 @@ export default function Auth () {
         firebase.auth()
         .signInWithPopup(provider)
         .then(async res => {
-            console.log(res.user);
             const user = {
                 displayName : res.user ? res.user.displayName || '' : '',
                 email : res.user ? res.user.email || '' : '',
@@ -25,11 +24,11 @@ export default function Auth () {
                 displayName : user.displayName,
                 email : user.email,
                 uid : user.uid,
-                messages : []
+                rooms : [],
             });
         })
         .catch(err => {
-            console.log(err.message);
+            console.log(err.code);
         })
     }
 

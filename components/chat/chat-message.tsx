@@ -9,7 +9,6 @@ const db= firebase.firestore();
 
 export default function ChatMessage () {
     const messageRef = useRef<HTMLInputElement>(null);
-    const { uid } = useChat();
     const { user } = useAuth();
 
     const sendMessageHandler = async () => {

@@ -7,8 +7,9 @@
     top : 60px;
     right : 20px;
     transform-origin: top right;
+    z-index : 50;
     
-    transition: all 0.2s ease-out;
+    transition: all 0.2s ease-in-out;
 }
 
 .chat_dropdown_item {

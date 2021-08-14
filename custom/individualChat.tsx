@@ -2,61 +2,57 @@ import { createContext, useState, useContext } from "react";
 
 const ChatContext = createContext<{
     name : string;
-    email : string;
-    uid : string;
-    showIndividual : boolean;
-    showChat : (newName:string, newEmail:string, newUid:string)=>void;
-    hideChat : () => void
+    updateName: (newName : string) => void;
+    id : string;
+    updateId: (newId : string) => void;
+    show : boolean;
+    updateShow: (newShow : boolean) => void;
+    creator : string;
+    updateCreator: (newCreator : string) => void;
 }>({
-    name : "",
-    email : "",
-    uid : "",
-    showIndividual : false,
-    showChat : (newName:string, newEmail:string, newUid:string) => {},
-    hideChat : () => {}
+    name : '',
+    updateName: (newName : string) => {},
+    id : '',
+    updateId: (newId : string) => {},
+    show : false,
+    updateShow: (newShow : boolean) => {},
+    creator : '',
+    updateCreator: (newCreator : string) => {}
 })
 
 export const ChatProvider : React.FC = ({children}) => {
-    const [showIndividual, setShowIndividual] = useState(false);
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [uid, setUid] = useState("");
+    const [name, setName] = useState('');
+    const [id, setId] = useState('');
+    const [show, setShow] = useState(false);
+    const [creator, setCreator] = useState('');
 
-    const showChat : (newName:string, newEmail:string, newUid:string) =>void = (newName:string, newEmail:string, newUid:string) => {
-        updateName(newName);
-        updateEmail(newEmail);
-        updateUid(newUid);
-        setShowIndividual(true);
+    const updateShow = (newShow : boolean) => {
+        setShow(newShow);
     }
 
-    const hideChat : () => void = () => {
-        updateName('');
-        updateEmail('');
-        updateUid('');
-        setShowIndividual(false);
+    const updateName = (newName : string) => {
+        setName(newName);
     }
 
-    const updateName : (newName:string)=>void = (newName : string) => {
-        setName(newName)
+    const updateId = (newId : string) => {
+        setId(newId);
     }
 
-    const updateEmail : (newEmail:string)=>void = (newEmail:string) => {
-        setEmail(newEmail);
-    }
-
-    const updateUid : (newUid:string)=>void = (newUid:string) => {
-        setUid(newUid);
+    const updateCreator = (newCreator : string) => {
+        setCreator(newCreator);
     }
 
     return (
         <ChatContext.Provider
             value={{
-                name,
-                email,
-                uid,
-                showIndividual,
-                showChat,
-                hideChat
+                name, 
+                updateName,
+                id, 
+                updateId,
+                show,
+                updateShow,
+                creator,
+                updateCreator
             }}
         >
             {children}

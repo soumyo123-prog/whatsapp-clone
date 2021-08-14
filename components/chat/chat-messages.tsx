@@ -20,15 +20,14 @@ type messageObj = {
 export default function ChatMessages () {
     const [messages, setMessages] = useState<messageObj[]>([]);
 
-    const {uid, hideChat} = useChat();
+    const { updateShow } = useChat();
     const {user} = useAuth();
 
     useEffect(() => {
-        
-        
+
         return () => {
             console.log("unmounting");
-            hideChat();
+            updateShow(false);
         }
     }, []);
 
