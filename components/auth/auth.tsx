@@ -24,7 +24,6 @@ export default function Auth () {
                 displayName : user.displayName,
                 email : user.email,
                 uid : user.uid,
-                rooms : [],
             });
         })
         .catch(err => {

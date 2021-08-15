@@ -10,14 +10,27 @@ const db= firebase.firestore();
 export default function ChatMessage () {
     const messageRef = useRef<HTMLInputElement>(null);
     const { user } = useAuth();
+    const { id } = useChat();
 
     const sendMessageHandler = async () => {
         try {
-            
-            
+            const body = messageRef.current?.value;
+
+            if (messageRef.current) {
+                messageRef.current.value = '';
+            }
+            messageRef.current?.focus();
+
+            if (body) {
+                await db.collection('rooms').doc(id).collection('messages').add({
+                    sender : user.uid,
+                    content : body,
+                    timestamp : firebase.firestore.FieldValue.serverTimestamp()
+                })
+            }
         
         } catch (e) {
-            return e;
+            console.log(e.code);
         }
     }
 

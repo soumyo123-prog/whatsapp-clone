@@ -22,7 +22,6 @@ const NewRoom : React.FC<{}> = (props) => {
         const qs = await db.collection('rooms').add({
             name : name,
             members : [user.uid],
-            messages : [],
             creator : user.uid,
         })
 

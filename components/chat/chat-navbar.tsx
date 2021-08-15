@@ -1,23 +1,33 @@
 import classes from './styles/chat-navbar.module.scss';
 import DummyProfile from '../dummy-profile/dummy-profile';
-import {AiOutlineSearch} from 'react-icons/ai';
 import {FaEllipsisV} from 'react-icons/fa';
 import ChatDropdown from './chat-navbar-dropdown';
 import { useState } from 'react';
 import { useChat } from '../../custom/individualChat';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import ChatDetails from '../chat-details/chat-details';
+import { IoPersonAdd } from 'react-icons/io5';
+import NewMember from '../new-member/new-member';
 
 const ChatNavbar : React.FC<{}> = (props) => {
     const [show, setShow] = useState(false);
     const { name, updateShow } = useChat();
     const [seeDet, setSeeDet] = useState(false);
+    const [addNew, setAddNew] = useState(false);
+
+    const updateAddNew = () => {
+        setShow(false);
+        setAddNew(prev => !prev);
+    }
 
     const updateSeeDet = (val : boolean) => {
+        setAddNew(false);
+        setShow(false);
         setSeeDet(val);
     }
 
     const toggleDropdown = () => {
+        setAddNew(false);
         setShow(prevShow => !prevShow);
     }
 
@@ -69,10 +79,11 @@ const ChatNavbar : React.FC<{}> = (props) => {
                         "d-flex align-items-end justify-content-end",
                         classes.chat_navbar_item,
                         classes.chat_navbar_icon,
-                        classes.chat_navbar_icon_search
+                        classes.chat_navbar_icon_add
                     ].join(' ')}
+                    onClick = {updateAddNew}
                 >
-                    <AiOutlineSearch color='rgb(177, 179, 181)' size="1.5rem"/>
+                    <IoPersonAdd size="1.5rem"/>
                 </li>
                 <li
                     className={[
@@ -88,6 +99,7 @@ const ChatNavbar : React.FC<{}> = (props) => {
         </nav>
         <ChatDetails show={seeDet} hide={updateSeeDet}/>
         <ChatDropdown show={show}/>
+        <NewMember show={addNew}/>
         </>
     )
 }

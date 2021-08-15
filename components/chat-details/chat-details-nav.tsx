@@ -23,6 +23,7 @@ const ChatDetailsNav : React.FC<{close:(val : boolean) => void;}> = (props) => {
             <div
                 className = {[
                     "d-flex align-items-center",
+                    "user-select-none",
                     classes.chat_details_nav_item,
                     classes.chat_details_nav_item_title
                 ].join(' ')}
