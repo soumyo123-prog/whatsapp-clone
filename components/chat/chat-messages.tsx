@@ -52,7 +52,7 @@ export default function ChatMessages () {
         }
     }, [])
 
-    let display = msgs.map(msg => {
+    let display = msgs.map((msg, ind) => {
         const msgClasses = [classes.chat_message_container];
         if (msg.sender === user.uid) {
             msgClasses.push(classes.right);
@@ -63,6 +63,7 @@ export default function ChatMessages () {
         return (
             <div
                 className = {msgClasses.join(' ')}
+                key={ind}
             >
                 {msg.content}
             </div>
