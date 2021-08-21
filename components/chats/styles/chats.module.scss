@@ -7,3 +7,9 @@
     min-width : 300px;
     position: relative;
 }
+
+@media (max-width: 599px) {
+    .chats_container {
+        width: 100%;
+    }
+}

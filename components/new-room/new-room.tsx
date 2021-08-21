@@ -29,6 +29,13 @@ const NewRoom : React.FC<{}> = (props) => {
             id : qs.id
         })
 
+        await db.collection('rooms').doc(qs.id).collection('users').doc(user.uid).set({
+            name: user.displayName,
+            email: user.email,
+            id: user.uid,
+            photoUrl: user.photoUrl
+        })
+
         updateId(qs.id);
     }
 

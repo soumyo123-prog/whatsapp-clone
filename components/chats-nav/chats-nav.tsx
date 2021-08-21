@@ -5,11 +5,13 @@ import Profile from '../profile/profile';
 import { useState } from 'react';
 import NewRoom from '../new-room/new-room';
 import { useRoom } from '../../custom/room';
+import { useAuth } from '../../custom/auth';
 
 const ChatsNav : React.FC<{logout : () => void;}> = (props) => {
     const {updateShow} = useRoom();
     const [dropdown, setDropdown] = useState(false);
     const [profile, setProfile] = useState(false);
+    const { user } = useAuth();
 
     const toggleDropdown = () => {
         setDropdown(prevDropdown => !prevDropdown);
@@ -38,7 +40,10 @@ const ChatsNav : React.FC<{logout : () => void;}> = (props) => {
                     ].join(' ')}
                     onClick={toggleProfileSettings}
                 >
-                    <DummyProfile />
+                    <div
+                        className={classes.chats_nav_list_item_profile_picture}
+                        style={{ backgroundImage: `url(${user.photoUrl})` }}
+                    />
                 </li>
                 <li
                     className = {[

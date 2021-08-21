@@ -11,20 +11,7 @@
     height : 200px;
     width : 200px;
     border-radius: 50%;
-    background-color: rgba(#fff, 0.1);
-    // overflow : hidden;
+    background-size: cover;
+    background-position: center;
     position : relative;
-}
-
-.profile_picture_update_container {
-    height: 100%;
-    width : 100%;
-    border-radius: 50%;
-    position : absolute;
-    top : 0;
-    left : 0;
-    color : $profile-settings-text;
-    text-transform: uppercase;
-    cursor: pointer;
-    font-size : 0.8rem;
 }

@@ -7,6 +7,7 @@ import {ChatProvider} from '../custom/individualChat';
 
 import firebase from 'firebase';
 import 'firebase/firestore';
+import 'firebase/storage';
 import { SearchProvider } from '../custom/search';
 import { RoomProvider } from '../custom/room';
 

@@ -1,14 +1,15 @@
-import { useState } from 'react';
-import { AiFillCamera } from 'react-icons/ai';
-import { IoPerson } from 'react-icons/io5';
+import { useEffect, useState } from 'react';
 import { useChat } from '../../custom/individualChat';
 import ChatDetailsUpdate from './chat-details-update';
 import classes from './styles/chat-details-picture.module.scss';
+import { firebase } from '../../pages/_app';
+import { usePicture } from '../../custom/picture';
 
 const ChatDetailsPicture : React.FC<{}> = (props) => {
     const { name, id } = useChat();
     const [updateList, setUpdateList] = useState(false);
-
+    const url = usePicture(id);
+    
     return (
         <div
             className={[
@@ -28,10 +29,10 @@ const ChatDetailsPicture : React.FC<{}> = (props) => {
                         "d-flex justify-content-center align-items-center",
                         classes.chat_details_profile_picture
                     ].join(' ')}
+                    style={{ backgroundImage: `url(${url})` }}
                     onMouseEnter = {() => setUpdateList(true)}
                     onMouseLeave = {() => setUpdateList(false)}
                 >
-                    <IoPerson size="12.5rem"/>
                     <ChatDetailsUpdate show={updateList}/>
                 </div>
             </div>

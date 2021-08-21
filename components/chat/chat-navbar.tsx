@@ -8,12 +8,14 @@ import { AiOutlineArrowLeft } from 'react-icons/ai';
 import ChatDetails from '../chat-details/chat-details';
 import { IoPersonAdd } from 'react-icons/io5';
 import NewMember from '../new-member/new-member';
+import { usePicture } from '../../custom/picture';
 
 const ChatNavbar : React.FC<{}> = (props) => {
     const [show, setShow] = useState(false);
-    const { name, updateShow } = useChat();
+    const { name, updateShow, id } = useChat();
     const [seeDet, setSeeDet] = useState(false);
     const [addNew, setAddNew] = useState(false);
+    const url = usePicture(id);
 
     const updateAddNew = () => {
         setShow(false);
@@ -63,7 +65,10 @@ const ChatNavbar : React.FC<{}> = (props) => {
                     ].join(' ')}
                     onClick = {() => updateSeeDet(true)}
                 >
-                    <DummyProfile />
+                    <div 
+                        className={classes.chat_navbar_item_profile_picture}
+                        style={{ backgroundImage: `url(${url})` }}
+                    />
                 </li>
                 <li
                     className={[

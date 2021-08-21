@@ -54,7 +54,7 @@ export default function ChatsSearch() {
                 "d-flex justify-content-center align-items-center"
             ].join(' ')}
         >
-            <label
+            {/* <label
                 className={[
                     classes.chats_search_input_container,
                     "d-flex align-items-center"
@@ -82,7 +82,7 @@ export default function ChatsSearch() {
                 >
                     Enter email of user
                 </div>
-            </label>
+            </label> */}
         </div>
     )
 }

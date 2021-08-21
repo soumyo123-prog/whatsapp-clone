@@ -1,12 +1,12 @@
 import classes from './styles/profile-picture.module.scss';
-import {IoPerson} from 'react-icons/io5';
-import {AiFillCamera} from 'react-icons/ai';
 import { useState } from 'react';
 
 import ProfilePictureSettings from './profile-picture-settings';
+import { useAuth } from '../../custom/auth';
 
 export default function ProfilePicture() {
     const [picSettings, setPicSettings] = useState(false);
+    const { user } = useAuth();
 
     const togglePicSettings = () => {
         setPicSettings(prevPicSettings => !prevPicSettings);
@@ -23,20 +23,12 @@ export default function ProfilePicture() {
                 className={[
                     classes.profile_picture
                 ].join(' ')}
+                onClick={togglePicSettings}
+                style={{
+                    backgroundImage: `url(${user.photoUrl})`
+                }}
             >
-                <div
-                    className={[
-                        classes.profile_picture_update_container,
-                        "d-flex flex-column justify-content-center align-items-center",
-                        "user-select-none"
-                    ].join(' ')}
-                    onClick={togglePicSettings}
-                >
-                    <AiFillCamera size="1.5rem" color="rgb(177, 179, 181)"/>
-                    Update Photo
-                </div>
                 <ProfilePictureSettings show={picSettings} toggleShow={togglePicSettings}/>
-                <IoPerson size="12.5rem" color="rgba(177, 179, 181, 0.1)"/>
             </div>
         </div>
     )    

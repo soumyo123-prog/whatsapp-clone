@@ -12,12 +12,13 @@ export default function App () {
     useEffect(() => {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
-                const {displayName, email, refreshToken, uid} = user;
+                const {displayName, email, refreshToken, uid, photoURL} = user;
                 setUser({
                     displayName : displayName || '',
                     email : email || '',
                     refreshToken : refreshToken || '',
                     uid : uid || '',
+                    photoUrl: photoURL || ''
                 })
                 setShow(<Home />)
             } else {

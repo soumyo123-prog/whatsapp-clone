@@ -1,9 +1,11 @@
 import classes from './styles/chat.module.scss';
-import DummyProfile from '../dummy-profile/dummy-profile';
 import { useChat } from '../../custom/individualChat';
+import { usePicture } from '../../custom/picture';
 
 const Chat : React.FC<{name:string; id:string; creator:string;}> = (props) => {
     const { updateShow, updateName, updateId, updateCreator } = useChat();
+    const url = usePicture(props.id);
+    console.log(url);
 
     const showChatHandler = () => {
         updateName(props.name);
@@ -26,7 +28,10 @@ const Chat : React.FC<{name:string; id:string; creator:string;}> = (props) => {
                     "d-flex justify-content-center align-items-center"
                 ].join(' ')}
             >
-                <DummyProfile />
+                <div 
+                    className={classes.chat_profile_picture_picture}
+                    style={{ backgroundImage: `url(${url})` }}
+                />
             </div>
             <div
                 className={[

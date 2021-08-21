@@ -10,6 +10,7 @@ type userObj = {
     displayName : string;
     uid : string;
     email : string;
+    photoUrl : string;
 };
 
 const db = firebase.firestore();
@@ -21,36 +22,33 @@ const ChatDetailsMembers : React.FC<{}> = (props) => {
 
     useEffect(() => {
         
-        const unsubscribe = db.collection('rooms').doc(id)
-            .onSnapshot(qs => {
-                const members : userObj[] = [];
+        if (id) {
+            const unsubscribe = db.collection('rooms').doc(id).collection('users')
+                                    .onSnapshot(qs => {
+                                        const members : userObj[] = [];
+                                        qs.forEach(doc => {
+                                            members.push({
+                                                displayName: doc.data().name,
+                                                uid: doc.data().id,
+                                                email: doc.data().email,
+                                                photoUrl: doc.data().photoUrl,
+                                            })
+                                        })
+                                        setUsers(members);
+                                    })
 
-                qs.data()?.members.forEach((member:string) => {
-                    db.collection('users').doc(member).get()
-                        .then(user => {
-                            members.push({
-                                displayName : user.data()?.displayName,
-                                uid : user.data()?.uid,
-                                email : user.data()?.email,
-                            })
-                        })
-                        .catch(err => {
-                            console.log(err.code);
-                        })
-                })
-                
-                setUsers(members);
+            return (() => {
+                console.log("unmounting");
+                unsubscribe();
             })
+        }
 
-        return (() => {
-            unsubscribe();
-        })
-
-    }, []);
+    }, [id]);
 
     const removeUserHandler = async (uid : string) => {
         try {
             if (users.length > 1) {
+                await db.collection('rooms').doc(id).collection('users').doc(uid).delete();
                 await db.collection('rooms').doc(id).update({
                     members: firebase.firestore.FieldValue.arrayRemove(uid)
                 })
@@ -80,7 +78,10 @@ const ChatDetailsMembers : React.FC<{}> = (props) => {
                         classes.chat_details_members_member_picture
                     ].join(' ')}
                 >
-                    <DummyProfile />
+                    <div 
+                        className = {classes.chat_details_members_member_picture_picture}
+                        style={{ backgroundImage: `url(${member.photoUrl})` }}
+                    />
                 </div>
                 <div
                     className = {[

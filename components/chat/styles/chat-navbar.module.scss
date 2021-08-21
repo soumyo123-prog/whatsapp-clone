@@ -36,6 +36,15 @@
     }
 }
 
+.chat_navbar_item_profile_picture {
+    height: 40px;
+    width: 40px;
+    border-radius : 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 .chat_navbar_item_name {
     width : calc(100% - 120px);
     padding : 15px;

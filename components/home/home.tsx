@@ -19,7 +19,6 @@ export default function Home () {
         <div
             className={[
                 classes.home_root,
-                "d-flex"
             ].join(' ')}
         >
             <Chats logout={logout}/>

@@ -7,6 +7,7 @@ type userObj = {
     email: string;
     refreshToken: string;
     uid : string;
+    photoUrl : string;
 }
 
 const defaultUser : userObj = {
@@ -14,6 +15,7 @@ const defaultUser : userObj = {
     email: '',
     refreshToken: '',
     uid : '',
+    photoUrl : ''
 }
 
 const AuthContext = createContext<{

@@ -29,6 +29,7 @@ const ProfilePictureSettings : React.FC<{show:boolean; toggleShow:() => void;}> 
                     classes.profile_picture_setting,
                     "user-select-none"
                 ].join(' ')}
+                onClick={() => console.log("clicked")}
             > Upload Photo </li>
         </ul>
     )

@@ -4,9 +4,10 @@
 .new_member_form_container {
     position : absolute;
     top : 60px;
-    right : 50px;
+    right : 10px;
     transform-origin: top right;
     z-index : 50;
+    width: 300px;
 
     transition: all 0.2s ease-in-out;
 }
@@ -22,7 +23,7 @@
 .new_member_form_item {
     color : $nav-icons-color;
     background-color : $nav-background-dark;
-    width : 230px;
+    width : 100%;
     padding : 10px;
 }
 
@@ -31,7 +32,7 @@
     border : 0;
     background : rgba(#fff, 0.1);
     height : 35px;
-    width : 200px;
+    width : 90%;
     border-radius: 50px;
     padding : 10px;
     color : $nav-icons-color;
@@ -45,4 +46,3 @@
     width : 40%;
     background-color: $teal-green-light;
 }
-

@@ -17,14 +17,29 @@ const NewMember : React.FC<{show:boolean;}> = (props) => {
 
         const qs = await db.collection('users').where('email','==',email).get();
 
-        let uid = null;
+        let user = {
+            displayName: '',
+            uid: '',
+            email: '',
+            photoUrl: ''
+        };
         qs.forEach(doc => {
-            uid = doc.data().uid;
+            user.displayName = doc.data().displayName;
+            user.email = doc.data().email;
+            user.uid = doc.data().uid;
+            user.photoUrl = doc.data().photoUrl;
         });
 
-        if(uid) {
+        if(user.uid) {
+            await db.collection('rooms').doc(id).collection('users').doc(user.uid).set({
+                name: user.displayName,
+                email: user.email,
+                id: user.uid,
+                photoUrl: user.photoUrl,
+            })
+
             await db.collection('rooms').doc(id).update({
-                members : firebase.firestore.FieldValue.arrayUnion(uid)
+                members : firebase.firestore.FieldValue.arrayUnion(user.uid)
             });
         }
 

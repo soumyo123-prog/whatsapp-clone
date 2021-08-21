@@ -18,16 +18,18 @@ export default function Auth () {
                 email : res.user ? res.user.email || '' : '',
                 refreshToken : res.user ? res.user.refreshToken || '' : '',
                 uid : res.user ? res.user.uid || '' : '',
+                photoUrl : res.user?.photoURL || '',
             }
             setUser(user);
             await db.collection('users').doc(user.uid).set({
                 displayName : user.displayName,
                 email : user.email,
                 uid : user.uid,
+                photoUrl : user.photoUrl
             });
         })
         .catch(err => {
-            console.log(err.code);
+            console.log(err.message);
         })
     }
 

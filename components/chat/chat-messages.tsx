@@ -21,27 +21,36 @@ export default function ChatMessages () {
 
     useEffect(() => {
 
-        const unsubscribe = db.collection('rooms').doc(id)
-            .collection('messages')
-            .orderBy('timestamp','asc')
-            .onSnapshot(qs => {
-                const mems : messageObj[] = [];
-                qs.forEach(doc => {
+        if (id) {
+            const unsubscribe = db.collection('rooms').doc(id)
+                .collection('messages')
+                .orderBy('timestamp','asc')
+                .onSnapshot(qs => {
+                    const mems : messageObj[] = [];
+                    qs.forEach(doc => {
 
-                    mems.push({
-                        sender : doc.data()?.sender,
-                        content : doc.data()?.content,
+                        mems.push({
+                            sender : doc.data()?.sender,
+                            content : doc.data()?.content,
+                        })
                     })
+                    setMsgs(mems);
+                    dummy.current?.scrollIntoView({behavior : 'smooth'});
                 })
-                setMsgs(mems);
-                dummy.current?.scrollIntoView({behavior : 'smooth'});
-            })
 
+            return () => {
+                setMsgs([]);
+                unsubscribe();
+            }
+        }
+        
+    }, [id]);
+
+    useEffect(() => {
         return () => {
             updateShow(false);
-            unsubscribe();
         }
-    }, []);
+    }, [])
 
     let display = msgs.map(msg => {
         const msgClasses = [classes.chat_message_container];
