@@ -13,7 +13,6 @@
 .chat_message_container {
     background: $setting-background-dark;
     color : white;
-    padding : 10px;
     margin-top : 10px;
     margin-bottom : 20px;
     padding : 10px;
@@ -26,6 +25,12 @@
         top : 0;
     }
 }
+
+.chat_name_container {
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: $teal-green-light;
+}   
 
 .left {
     border-radius: 0 10px 10px 10px;

@@ -41,15 +41,6 @@ const ChatDetailsUpdate : React.FC<{show:boolean;}> = (props) => {
                     classes.chat_details_update_item
                 ].join(' ')}
             >
-                View Photo
-            </li>
-
-            <li
-                className={[
-                    "d-flex justify-content-center align-items-center",
-                    classes.chat_details_update_item
-                ].join(' ')}
-            >
                 <label htmlFor="avatar">Update Photo</label>
                 <input 
                     type="file" 

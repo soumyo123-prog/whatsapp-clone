@@ -9,10 +9,12 @@ import ChatDetails from '../chat-details/chat-details';
 import { IoPersonAdd } from 'react-icons/io5';
 import NewMember from '../new-member/new-member';
 import { usePicture } from '../../custom/picture';
+import { useAuth } from '../../custom/auth';
 
 const ChatNavbar : React.FC<{}> = (props) => {
     const [show, setShow] = useState(false);
-    const { name, updateShow, id } = useChat();
+    const { name, updateShow, id, creator } = useChat();
+    const { user } = useAuth();
     const [seeDet, setSeeDet] = useState(false);
     const [addNew, setAddNew] = useState(false);
     const url = usePicture(id);
@@ -79,7 +81,8 @@ const ChatNavbar : React.FC<{}> = (props) => {
                 >
                     {name}
                 </li>
-                <li
+                {creator === user.uid ? 
+                    <li
                     className={[
                         "d-flex align-items-end justify-content-end",
                         classes.chat_navbar_item,
@@ -87,9 +90,10 @@ const ChatNavbar : React.FC<{}> = (props) => {
                         classes.chat_navbar_icon_add
                     ].join(' ')}
                     onClick = {updateAddNew}
-                >
-                    <IoPersonAdd size="1.5rem"/>
-                </li>
+                    >
+                        <IoPersonAdd size="1.5rem"/>
+                    </li>
+                : null}
                 <li
                     className={[
                         "d-flex align-items-center justify-content-center",

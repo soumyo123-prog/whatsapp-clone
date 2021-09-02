@@ -12,7 +12,8 @@ export default function ChatMessage () {
     const { user } = useAuth();
     const { id } = useChat();
 
-    const sendMessageHandler = async () => {
+    const sendMessageHandler = async (e: any) => {
+        e.preventDefault();
         try {
             const body = messageRef.current?.value;
 
@@ -23,23 +24,27 @@ export default function ChatMessage () {
 
             if (body) {
                 await db.collection('rooms').doc(id).collection('messages').add({
-                    sender : user.uid,
+                    sender : {
+                        id: user.uid,
+                        name: user.displayName,
+                    },
                     content : body,
                     timestamp : firebase.firestore.FieldValue.serverTimestamp()
                 })
             }
         
-        } catch (e) {
+        } catch (e: any) {
             console.log(e.code);
         }
     }
 
     return (
-        <div
+        <form
             className={[
                 "d-flex justify-content-center align-items-center",
                 classes.chat_message_container
             ].join(' ')}
+            onSubmit = {sendMessageHandler}
         >
             <input
                 className={[
@@ -66,6 +71,6 @@ export default function ChatMessage () {
                     <IoSend size="1.5rem" color="white"/>
                 </div>
             </div>
-        </div>
+        </form>
     )
 }

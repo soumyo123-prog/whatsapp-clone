@@ -2,7 +2,7 @@
 @import '../../../scss/mixins';
 
 .chats_list_container {
-    height : calc(100% - 60px - 50px);
+    height : calc(100% - 60px);
     border-right: 2px solid $border-dark;
     overflow: auto;
 }

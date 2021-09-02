@@ -8,7 +8,6 @@ import {ChatProvider} from '../custom/individualChat';
 import firebase from 'firebase';
 import 'firebase/firestore';
 import 'firebase/storage';
-import { SearchProvider } from '../custom/search';
 import { RoomProvider } from '../custom/room';
 
 const config = {
@@ -33,11 +32,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
         <ChatProvider>
-            <SearchProvider>
-                <RoomProvider>
-                    <Component {...pageProps} />
-                </RoomProvider>
-            </SearchProvider>
+            <RoomProvider>
+                <Component {...pageProps} />
+            </RoomProvider>
         </ChatProvider>
     </AuthProvider>
   )

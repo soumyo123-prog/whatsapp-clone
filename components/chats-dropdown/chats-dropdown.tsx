@@ -24,14 +24,6 @@ const ChatsDropdown : React.FC<{show:boolean; logout:() => void;}> = (props) => 
                     "list-group-item",
                     classes.chats_dropdown_item
                 ].join(' ')}
-            >
-                Settings
-            </li>
-            <li 
-                className={[
-                    "list-group-item",
-                    classes.chats_dropdown_item
-                ].join(' ')}
                 onClick={props.logout}
             >
                 Logout

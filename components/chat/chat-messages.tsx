@@ -9,7 +9,10 @@ import { useRef } from 'react';
 const db = firebase.firestore();
 
 type messageObj = {
-    sender : string;
+    sender : {
+        id: string,
+        name: string,
+    };
     content : string;
 };
 
@@ -54,7 +57,7 @@ export default function ChatMessages () {
 
     let display = msgs.map((msg, ind) => {
         const msgClasses = [classes.chat_message_container];
-        if (msg.sender === user.uid) {
+        if (msg.sender.id === user.uid) {
             msgClasses.push(classes.right);
         } else {
             msgClasses.push(classes.left);
@@ -65,7 +68,23 @@ export default function ChatMessages () {
                 className = {msgClasses.join(' ')}
                 key={ind}
             >
-                {msg.content}
+                <div
+                    className = {[
+                        'd-flex align-items-center',
+                        'user-select-none',
+                        classes.chat_name_container 
+                    ].join(' ')}
+                >
+                    {msg.sender.name}
+                </div>
+                <div
+                    className = {[
+                        'd-flex align-items-center',
+                        classes.chat_message_message_container
+                    ].join(' ')}
+                >
+                    {msg.content}   
+                </div>
             </div>
         )
     })
