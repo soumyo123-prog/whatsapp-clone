@@ -1,29 +1,17 @@
-import classes from './styles/chat.module.scss';
-import ChatNavbar from './chat-navbar';
-import ChatMessage from './chat-message';
-import ChatMessages from './chat-messages';
+import * as styles from "./styles";
 
-const Chat : React.FC<{show:boolean}> = (props) => {
-    const chatClasses = [
-        classes.chat_container,
-    ];
-    if (props.show) {
-        chatClasses.push(classes.open);
-    } else {
-        chatClasses.push(classes.close);
-    }
+import ChatNavbar from "./chat-navbar";
+import ChatMessage from "./chat-message";
+import ChatMessages from "./chat-messages";
 
-    let show = (
-        <div
-            className={chatClasses.join(' ')}
-        >
-            <ChatNavbar />
-            <ChatMessages />
-            <ChatMessage />
-        </div>
-    );
-
-    return show;
-} 
+const Chat: React.FC<{ show: boolean }> = (props) => {
+  return (
+    <styles.ChatContainer show={props.show}>
+      <ChatNavbar />
+      <ChatMessages />
+      <ChatMessage />
+    </styles.ChatContainer>
+  );
+};
 
 export default Chat;
