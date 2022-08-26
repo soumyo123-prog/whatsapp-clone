@@ -5,7 +5,7 @@ export default function RootPage () {
     return (
         <>
         <Head>
-            <title>GM-Chat</title>
+            <title>Next Chat</title>
         </Head>
         <App />
         </>
